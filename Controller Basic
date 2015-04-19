@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="bower_components/angular/angular.min.js"></script>
+<script>
+             angular.module('modKey',[])
+            .controller('first',function ($scope){
+                $scope.$on('myEvent',function(){
+                    alert('first controller')});
+                $scope.myFunc=function(){
+                    $scope.$broadcast('myEvent') }})
+
+            .controller('second',function ($scope){
+                $scope.$on('myEvent',function(){
+                    alert('second controller')});
+                $scope.myFunc=function(){
+                    $scope.$broadcast('myEvent') }})
+
+
+            .controller('third', function($scope) {
+                $scope.$on('myEvent',function(){
+                    alert('third controller')});
+                $scope.myFunc=function(){
+                    $scope.$emit('myEvent')}})
+
+
+                     .controller('forth', function($scope) {
+                         $scope.$on('myEvent',function(){
+                             alert('forth controller')});
+                         $scope.myFunc=function(){
+                             $scope.$emit('myEvent')}})
+
+</script>
+    </head>
+<body ng-app="modKey">
+
+<div ng-controller="first">
+    <button ng-click="myFunc()">FIRST CONTROLLER</button>
+    <div ng-controller="forth">
+</div>
+</div>
+
+<div ng-controller="second">
+        <button ng-click="myFunc()">SECOND CONTROLLER</button>
+        <div ng-controller="third"> </div> </div>
+
+<div ng-controller="third">
+    <div ng-controller="second">
+        <button ng-click="myFunc()">THIRD CONTROLLER</button>
+            </div>
+</div>
+
+            <div ng-controller="forth">
+                <div ng-controller="first">
+                    <button ng-click="myFunc()">FORTH CONTROLLER</button>
+
+    </div>
+</div>
+</body>
+</html>       
